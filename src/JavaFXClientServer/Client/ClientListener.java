@@ -20,11 +20,15 @@ public class ClientListener implements Runnable {
 
     public void run() {
         try {
+            System.out.println("试图连接服务器 ip: " + this.ip + " port: " + this.port + " ...");
             Socket socket = new Socket(this.ip, this.port);
+            System.out.println("成功连接服务器");
 
+            System.out.println("获取输入输出流...");
             out = new DataOutputStream(socket.getOutputStream());
             out.flush();
             in = new DataInputStream(socket.getInputStream());
+            System.out.println("获取输入输出流成功");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +38,7 @@ public class ClientListener implements Runnable {
     public static String sendMsg(String message) {
         try {
             out.writeUTF(message);
-            System.out.println("send message");
+            System.out.println("向服务器发送信息: " + message);
             return in.readUTF();
         } catch (IOException e) {
             e.printStackTrace();

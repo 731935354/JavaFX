@@ -26,10 +26,12 @@ public class ClientLauncher extends Application {
 
         String ip = paras.get(0);
         int port = Integer.parseInt(paras.get(1));
-        System.out.println(ip);
-        System.out.println(port);
+        System.out.println("ip: " + ip);
+        System.out.println("port: " + port);
 
-        ClientListener clientListener = new ClientListener(ip, port);
+        // client listener is responsible for dealing with files and network input/outputs
+
+        ClientListener clientListener = new ClientListener("127.0.0.1", 9992);
         Thread x = new Thread(clientListener);
         x.start();
     }
