@@ -20,7 +20,7 @@ public class ServerLauncher extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
-        int port = 9992;
+        int port = 9993;
         String dictPath = "/Users/rongxinzhu/IdeaProjects/socket_example/src/JavaFXClientServer/JsonIO/example.json";
         ServerListener serverListener = new ServerListener(port, dictPath);
         Thread thread = new Thread(serverListener);

@@ -97,4 +97,13 @@ public class JsonDict {
         }
         return false;
     }
+
+    public String toString() {
+        try {
+            return dict.toString(4);
+        } catch (JSONException e) {
+            System.out.println("Failed to convert dictionary to string.");
+        }
+        return null;
+    }
 }

@@ -24,14 +24,16 @@ public class ClientLauncher extends Application {
         Parameters parameters = getParameters();
         List<String> paras = parameters.getUnnamed();
 
+        // 检测有几个命令行参数
+        // 检测参数的格式，(正则)
+
         String ip = paras.get(0);
         int port = Integer.parseInt(paras.get(1));
         System.out.println("ip: " + ip);
         System.out.println("port: " + port);
 
         // client listener is responsible for dealing with files and network input/outputs
-
-        ClientListener clientListener = new ClientListener("127.0.0.1", 9992);
+        ClientListener clientListener = new ClientListener("127.0.0.1", 9993);
         Thread x = new Thread(clientListener);
         x.start();
     }

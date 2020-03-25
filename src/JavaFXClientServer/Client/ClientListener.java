@@ -35,11 +35,12 @@ public class ClientListener implements Runnable {
         }
     }
 
+    /* 给服务器发送消息，(严格的一发一收形式，需要与服务器的逻辑相对应) */
     public static String sendMsg(String message) {
         try {
-            out.writeUTF(message);
+            out.writeUTF(message);  // 给服务器发送request [对应服务器读取逻辑]
             System.out.println("向服务器发送信息: " + message);
-            return in.readUTF();
+            return in.readUTF();  // 从服务器读取response [对应服务器发送逻辑]
         } catch (IOException e) {
             e.printStackTrace();
         }

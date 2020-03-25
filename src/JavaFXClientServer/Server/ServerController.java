@@ -11,6 +11,8 @@ public class ServerController {
     @FXML
     private TextArea content;
 
+    @FXML private TextArea textAreaDict;
+
     public ServerController() {
         instance = this;
     }
@@ -27,5 +29,17 @@ public class ServerController {
         Platform.runLater(() -> {  // 让controller和gui线程进行交互
             content.setText(text);
         });
+    }
+
+    @FXML
+    public void showDict(String dictInStringFormat) {
+        Platform.runLater(() -> {  // 让controller和gui线程进行交互
+            textAreaDict.setText(dictInStringFormat);
+        });
+    }
+
+    @FXML
+    public void saveDict() {
+        return;
     }
 }
