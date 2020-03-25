@@ -23,6 +23,7 @@ Demos of multi-threading and JavaFX programs
 * [Use JavaFX in Intellij Idea](https://openjfx.io/openjfx-docs/#gradle)
 * [Create jar in Intellij Idea](https://www.javatt.com/p/79407)
 *  Enable parallel run for the same class: search `Allow running in parallel` [here](https://blog.jetbrains.com/idea/2018/09/whats-new-in-intellij-idea-2018-3-eap2/)
+* GUI design tool: [Scene Builder](https://gluonhq.com/products/scene-builder/)
 
 ## Future Work
 * Design better GUI.
