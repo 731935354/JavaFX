@@ -1,5 +1,5 @@
 # JavaFX
-Demos of multi-threading and JavaFX programs
+Demos of multi-threading + JavaFX + TCP socket programming.
 
 ## Structure
 * src
