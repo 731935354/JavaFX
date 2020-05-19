@@ -1,0 +1,10 @@
+/*当id为shape时，鼠标在元素上面时候的效果*/
+#shape:hover {
+    -fx-effect: dropshadow(gaussian,#2c92ff,5,0,0,0);
+}
+
+/*当元素(形状)的类是rec时，鼠标在元素上面时候的效果*/
+/* :hover 鼠标放到上面的效果 */
+.rec:hover {
+    -fx-effect: dropshadow(gaussian, #3aff21,5,0,0,0);
+}
