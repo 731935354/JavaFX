@@ -1,0 +1,19 @@
+/*当id为shape时，鼠标在元素上面时候的效果*/
+#shape:hover {
+    -fx-effect: dropshadow(gaussian,#2c92ff,5,0,0,0);
+}
+
+/* 鼠标在形状上面时候的效果*/
+/* :hover 鼠标放到上面的效果 */
+.shape:hover {
+    -fx-effect: dropshadow(gaussian, #3341ff,5,0,0,0);
+}
+
+.combo-box {
+    -fx-pref-width: 150;
+}
+
+/** Size the combo-box drop down list. */
+.combo-box-popup > .list-view {
+    -fx-pref-width: 200;
+}

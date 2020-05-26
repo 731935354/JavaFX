@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="whiteBoard.WhiteBoardController">
+   <center>
+      <Pane fx:id="drawingPane" prefHeight="599.0" prefWidth="589.0" style="-fx-border-color: white;" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <TitledPane animated="false" prefHeight="632.0" prefWidth="233.0" text="Tools" BorderPane.alignment="CENTER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="604.0" prefWidth="212.0">
+               <children>
+                  <Label layoutX="82.0" layoutY="102.0" text="Shapes" />
+                  <Label layoutX="14.0" layoutY="149.0" text="Line Width" />
+                  <Spinner fx:id="lineWidthSpinner" layoutX="105.0" layoutY="143.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Separator layoutY="124.0" prefHeight="4.0" prefWidth="229.0" />
+                  <ColorPicker fx:id="lineColorPicker" layoutX="105.0" layoutY="189.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Label layoutX="14.0" layoutY="194.0" text="Line Color" />
+                  <ComboBox fx:id="toolTypeComboBox" layoutX="105.0" layoutY="276.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Label layoutX="14.0" layoutY="283.0" text="Shape Type" />
+                  <Separator layoutY="327.0" prefHeight="2.0" prefWidth="234.0" />
+                  <Separator layoutX="-3.0" layoutY="360.0" prefHeight="2.0" prefWidth="234.0" />
+                  <Label layoutX="93.0" layoutY="337.0" text="Text" />
+                  <Label layoutX="14.0" layoutY="380.0" text="Font Family" />
+                  <ComboBox fx:id="fontFamilyComboBox" layoutX="103.0" layoutY="374.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Label layoutX="14.0" layoutY="430.0" text="Font Size" />
+                  <Spinner fx:id="fontSizeSpinner" layoutX="103.0" layoutY="423.0" prefHeight="30.0" prefWidth="110.0" />
+                  <CheckBox fx:id="fontBoldCheckBox" layoutX="15.0" layoutY="526.0" mnemonicParsing="false" text="Bold" />
+                  <CheckBox fx:id="fontItalicCheckBox" layoutX="115.0" layoutY="526.0" mnemonicParsing="false" text="Italic" />
+                  <ColorPicker fx:id="fillColorPicker" layoutX="105.0" layoutY="233.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Label layoutX="14.0" layoutY="238.0" text="Fill Color" />
+                  <ColorPicker fx:id="fontColorPicker" layoutX="105.0" layoutY="470.0" prefHeight="30.0" prefWidth="110.0" />
+                  <Label layoutX="14.0" layoutY="475.0" text="Font Color" />
+                  <Label layoutX="87.0" layoutY="6.0" text="Mode" />
+                  <Separator layoutX="-1.0" layoutY="29.0" prefHeight="4.0" prefWidth="229.0" />
+                  <Separator layoutX="-1.0" layoutY="91.0" prefHeight="4.0" prefWidth="229.0" />
+                  <Button fx:id="drawModeButton" layoutX="40.0" layoutY="48.0" mnemonicParsing="false" text="Draw" />
+                  <Button fx:id="editModeButton" layoutX="139.0" layoutY="48.0" mnemonicParsing="false" text="Edit" />
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
+   </left>
+   <right>
+      <AnchorPane prefHeight="637.0" prefWidth="222.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="66.0" layoutY="11.0" text="Active Users" />
+            <TableView layoutX="1.0" layoutY="37.0" prefHeight="596.0" prefWidth="221.0">
+              <columns>
+                <TableColumn prefWidth="130.0" text="Username" />
+                <TableColumn prefWidth="69.0" text="Drawing" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </right>
+</BorderPane>

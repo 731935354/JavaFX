@@ -57,37 +57,40 @@ public class RegionSelect extends Application {
         });
         pane.getChildren().add(reselect);
 
+        // 画板鼠标点击事件
         pane.setOnMousePressed(e -> {
-            if (onCreateSelectRegion) { // 绘制选区(矩形选区)
+            // 绘制选区状态(矩形选区)
+            if (onCreateSelectRegion) {
                 x1 = e.getX();
                 y1 = e.getY();
                 // 真实的选区矩形
                 rectangle = new Rectangle(x1, y1, 0, 0);
                 pane.getChildren().add(rectangle);
             } else {
-                // 点击画布时记录所有已选中形状的起始坐标
+                // 选取绘制完毕
+                // 点击画布时记录所有已选中形状的起始坐标与当前鼠标点击位置的相对偏移量
                 for (Shape s: selectedShapes) {
                     double deltaX = 0;
                     double deltaY = 0;
-                    if (s instanceof Circle) {
+                    if (s instanceof Circle) {  // 圆心与当前鼠标点击位置的偏移量
                         deltaX = ((Circle) s).getCenterX() - e.getX();
                         deltaY = ((Circle) s).getCenterY() - e.getY();
 
-                    } else if (s instanceof Rectangle) {
+                    } else if (s instanceof Rectangle) {  // 矩形左上角与当前鼠标点击位置的偏移量
                         deltaX = ((Rectangle) s).getX() - e.getX();
                         deltaY = ((Rectangle) s).getY() - e.getY();
                     }
-                    deltaXs.put(s, deltaX);
-                    deltaYs.put(s, deltaY);
+                    deltaXs.put(s, deltaX);  // 将x偏移量存储到相应dictionary中
+                    deltaYs.put(s, deltaY);  // 将y偏移量存储到相应dictionary中
                 }
-                // 记录选区边界起始坐标
+                // 记录选区矩形偏移量(从而在拖动时让选取也跟随移动
                 deltaXs.put(rectangle, rectangle.getX() - e.getX());
                 deltaYs.put(rectangle, rectangle.getY() - e.getY());
             }
         });
 
         pane.setOnMouseDragged(e -> {
-            if (onCreateSelectRegion) {
+            if (onCreateSelectRegion) {  // 绘制选区状态
                 x2 = e.getX();
                 y2 = e.getY();
 
@@ -98,31 +101,17 @@ public class RegionSelect extends Application {
                 rectangle.setWidth(width);
                 rectangle.setHeight(height);
                 rectangle.setStyle("-fx-stroke: black; -fx-stroke-width: 2; -fx-stroke-dash-array: 20 10");
-                rectangle.setFill(null);
-            } else {
-//                // move by setting x y property
-//                for (Shape shape: selectedShapes) {
-//                    if (shape instanceof Rectangle) {
-//                        Rectangle cur_rec = ((Rectangle) shape);
-//                        cur_rec.setX(e.getX() + deltaXs.get(shape));
-//                        cur_rec.setY(e.getY() + deltaYs.get(shape));
-//                    } else if (shape instanceof Circle) {
-//                        Circle cur_cir = ((Circle) shape);
-//                        cur_cir.setCenterX(e.getX() + deltaXs.get(shape));
-//                        cur_cir.setCenterY(e.getY() + deltaYs.get(shape));
-//                    }
-//                }
-//                // 选区的矩形也跟着移动
-//                rectangle.setX(e.getX() + deltaXs.get(rectangle));
-//                rectangle.setY(e.getY() + deltaYs.get(rectangle));
+                // 将选区矩形背景色设成"几乎透明"，可以捕捉事件
+                rectangle.setFill(Color.rgb(0, 0, 0, 1d / 255d));
             }
         });
 
+        // 画板鼠标释放事件
         pane.setOnMouseReleased(event -> {
-            if (onCreateSelectRegion) {
-                onCreateSelectRegion = false;
+            if (onCreateSelectRegion) { // 选区绘制状态
+                onCreateSelectRegion = false; // 选区绘制结束
 
-                // 检测当前矩形是否包含其他形状，或与其他形状重叠
+                // 计算选中的形状
                 for (Shape s: allShapes) {
                     if (rectangle.intersects(s.getBoundsInParent())) {
                         selectedShapes.add(s);
@@ -130,46 +119,25 @@ public class RegionSelect extends Application {
                 }
             }
 
-//            rectangle.setOnMouseDragged(e -> {
-////                 move by setting x y property
-//                for (Shape shape: selectedShapes) {
-//                    if (shape instanceof Rectangle) {
-//                        Rectangle cur_rec = ((Rectangle) shape);
-//                        cur_rec.setX(e.getX() + deltaXs.get(shape));
-//                        cur_rec.setY(e.getY() + deltaYs.get(shape));
-//                    } else if (shape instanceof Circle) {
-//                        Circle cur_cir = ((Circle) shape);
-//                        cur_cir.setCenterX(e.getX() + deltaXs.get(shape));
-//                        cur_cir.setCenterY(e.getY() + deltaYs.get(shape));
-//                    }
-//                }
-//
-//                // 选区的矩形也跟着移动
-//                rectangle.setX(e.getX() + deltaXs.get(rectangle));
-//                rectangle.setY(e.getY() + deltaYs.get(rectangle));
-//            });
-
-//             激活移动模式：拖动已选中的任意形状，所有选中形状跟随移动
-            for (Shape s: selectedShapes) {
-                s.setOnMouseDragged(e -> {
-                    // move by setting x y property
-                    for (Shape shape: selectedShapes) {
-                        if (shape instanceof Rectangle) {
-                            Rectangle cur_rec = ((Rectangle) shape);
-                            cur_rec.setX(e.getX() + deltaXs.get(shape));
-                            cur_rec.setY(e.getY() + deltaYs.get(shape));
-                        } else if (shape instanceof Circle) {
-                            Circle cur_cir = ((Circle) shape);
-                            cur_cir.setCenterX(e.getX() + deltaXs.get(shape));
-                            cur_cir.setCenterY(e.getY() + deltaYs.get(shape));
-                        }
+            // 设置选区鼠标拖拽事件
+            rectangle.setOnMouseDragged(e -> {
+                // 同时移动选区中所有形状，以及选区本身
+                for (Shape shape: selectedShapes) {
+                    if (shape instanceof Rectangle) {
+                        Rectangle cur_rec = ((Rectangle) shape);
+                        cur_rec.setX(e.getX() + deltaXs.get(shape));
+                        cur_rec.setY(e.getY() + deltaYs.get(shape));
+                    } else if (shape instanceof Circle) {
+                        Circle cur_cir = ((Circle) shape);
+                        cur_cir.setCenterX(e.getX() + deltaXs.get(shape));
+                        cur_cir.setCenterY(e.getY() + deltaYs.get(shape));
                     }
+                }
 
-                    // 选区的矩形也跟着移动
-                    rectangle.setX(e.getX() + deltaXs.get(rectangle));
-                    rectangle.setY(e.getY() + deltaYs.get(rectangle));
-                });
-            }
+                // 选区的矩形也跟着移动
+                rectangle.setX(e.getX() + deltaXs.get(rectangle));
+                rectangle.setY(e.getY() + deltaYs.get(rectangle));
+            });
         });
 
         Scene scene = new Scene(pane,600, 600);
